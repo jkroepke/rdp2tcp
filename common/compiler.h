@@ -32,9 +32,9 @@
 #if defined(_DEBUG) && !defined(DEBUG)
 #define DEBUG
 #endif
-#define ssize_t int
+#include <stdint.h>
+typedef ptrdiff_t ssize_t;
 #define inline __inline
-#define snprintf _snprintf
 #define typeof(x) void *
 #endif
 

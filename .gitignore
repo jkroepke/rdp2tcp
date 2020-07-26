@@ -1,5 +1,6 @@
 
 *.o
+*.obj
 /client/rdp2tcp
 /server/rdp2tcp.exe
 

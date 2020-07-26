@@ -47,6 +47,7 @@ typedef int sock_t;
 #define valid_sock(s) ((s) && (*(s) != -1))
 
 #else
+#define _WINSOCK_DEPRECATED_NO_WARNINGS 1
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
