@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -96,7 +96,7 @@ int channel_read_event(void)
 	ssize_t r;
 	char *ptr;
 	unsigned int msglen, avail;
-	
+
 	//trace_chan("");
 
 	ptr = (char *)&msglen;
@@ -113,7 +113,7 @@ int channel_read_event(void)
 	if (!ptr)
 		return error("failed to reserve channel memory");
 
-  avail = msglen;
+	avail = msglen;
 	do {
 		r = read(RDP_FD_IN, ptr, avail);
 		//trace_chan("r=%u/%u", r, avail);
@@ -127,7 +127,7 @@ int channel_read_event(void)
 			fputc('\n', stderr);
 		}
 #endif
-		
+
 		print_xfer("chan", 'r', (unsigned int)r);
 
 		ptr += r;
@@ -145,7 +145,7 @@ chan_read_err:
 		error("failed to read from channel pipe (%s)", strerror(errno));
 	else if (r == 0)
 		error("channel closed");
-	return -1;	
+	return -1;
 }
 
 /**
@@ -178,8 +178,8 @@ void channel_write_event(void)
 		if (w > 0)
 			print_xfer("chan", 'w', (unsigned int) w);
 
-	} else { 
-		if (ret == NETERR_CLOSED) 
+	} else {
+		if (ret == NETERR_CLOSED)
 			error("rdesktop pipe closed");
 		else
 			error("failed to write to rdesktop pipe (%s)", strerror(errno));
