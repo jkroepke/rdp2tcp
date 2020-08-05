@@ -117,6 +117,12 @@ int channel_read_event(void)
 	do {
 		r = read(RDP_FD_IN, ptr, avail);
 		//trace_chan("r=%u/%u", r, avail);
+#ifdef _WIN32
+		if (r < 0 && errno == ERROR_MORE_DATA) {
+			r = avail;
+			errno = 0;
+		}
+#endif
 		if (r < 0)
 			goto chan_read_err;
 
@@ -142,7 +148,7 @@ int channel_read_event(void)
 
 chan_read_err:
 	if (r < 0)
-		error("failed to read from channel pipe (%s)", strerror(errno));
+		error("failed to read from channel pipe errno: %d (%s)", errno, strerror(errno));
 	else if (r == 0)
 		error("channel closed");
 	return -1;
